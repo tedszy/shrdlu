@@ -1,0 +1,6 @@
+unquoted,fields,should be ok
+"quoted","fields","ok?"
+"embedded,commas",",should,","be,ok"
+"embed""ded","""quotes""","and "","" commas"
+"embedded
+newline",Cleveland,38392
