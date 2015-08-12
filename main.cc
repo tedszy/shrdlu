@@ -8,7 +8,6 @@ void print_record (std::vector<std::string>);
 
 int main ()
 {
-
   Csv_parser p;
   std::stringstream zarf("aaa,bbb,ccc");
   p.read_record(zarf);

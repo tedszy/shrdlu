@@ -26,7 +26,6 @@ enum class Action {
     report_error
     };
 
-
 struct Transition {
   State state;
   Action action;
