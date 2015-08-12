@@ -4,12 +4,6 @@
 #include <fstream>
 #include "shrdlu.h"
 
-#define expect(a,b) {if ((a) == (b)) {                                  \
-      std::cout <<"ok: " << #b << std::endl;                            \
-    } else {                                                            \
-      std::cout << "===> NOT OK: " << #b                                \
-      << "... expected: " << a << ", got: " << b << std::endl;}}
-
 void print_record (std::vector<std::string>);
 
 int main ()
@@ -32,18 +26,6 @@ int main ()
     p.reset();
   }
   
-  /*
-  Csv readrec;
-  std::ifstream csv_file;
-  csv_file.open("sample.csv");  
-  stringstream zarf;
-  zarf << csv_file.rdbuf();
-  while (!zarf.eof()) {
-    print_record(readrec(zarf));
-  }
-  csv_file.close();
-  */
-
   return 0;
 }
 
