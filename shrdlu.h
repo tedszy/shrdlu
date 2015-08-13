@@ -45,7 +45,6 @@ class Csv_parser {
   
  public:
   int read_record (std::stringstream&);
-  void reset (void);
   int get_position (void);
   const std::vector<std::string>& get_record(void);
 };

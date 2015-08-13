@@ -23,14 +23,12 @@ int main ()
   std::stringstream foo;
   foo << ifs.rdbuf();
 
-  p.reset();
   while (!foo.eof()) {
     std::cout << "status: " << p.read_record(foo);
     std::cout << " record==> ";
     print_record(p.get_record());
-    p.reset();
   }
-  p.reset();
+  
   std::cout << "status: " << p.read_record(foo);
   std::cout << " record==> ";
   print_record(p.get_record());
