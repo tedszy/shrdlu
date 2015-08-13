@@ -10,7 +10,12 @@ int main ()
 {
   Csv_parser p;
   std::stringstream zarf("aaa,bbb,ccc");
-  p.read_record(zarf);
+  std::cout << "status: " << p.read_record(zarf);
+  std::cout << " record==> ";
+  print_record(p.get_record());
+  
+  std::cout << "status: " << p.read_record(zarf);
+  std::cout << " record==> ";
   print_record(p.get_record());
 
   std::ifstream ifs;
@@ -18,13 +23,17 @@ int main ()
   std::stringstream foo;
   foo << ifs.rdbuf();
 
-  p.reset();  
+  p.reset();
   while (!foo.eof()) {
     std::cout << "status: " << p.read_record(foo);
     std::cout << " record==> ";
     print_record(p.get_record());
     p.reset();
   }
+  p.reset();
+  std::cout << "status: " << p.read_record(foo);
+  std::cout << " record==> ";
+  print_record(p.get_record());
   
   return 0;
 }
