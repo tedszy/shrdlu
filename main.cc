@@ -13,12 +13,12 @@ int main ()
   p.read_record(zarf);
   print_record(p.get_record());
 
-  p.reset();
-
   std::ifstream ifs;
   ifs.open("sample.csv");
   std::stringstream foo;
   foo << ifs.rdbuf();
+
+  p.reset();  
   while (!foo.eof()) {
     p.read_record(foo);
     print_record(p.get_record());

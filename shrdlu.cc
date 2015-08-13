@@ -71,6 +71,8 @@ Token Csv_parser::get_token(stringstream& ss)
   case ',': return Token{Event::comma, c};
   case '\n': return Token{Event::newline, c};
   case '"':
+    if (state == State::start)
+      return Token{Event::quote, '\0'};
     cnext = ss.get();
     if (ss.eof()) {
       ss.clear();
