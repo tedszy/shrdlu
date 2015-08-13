@@ -21,8 +21,8 @@ enum class Action {
   add,
     next,
     emit_field,
-    emit_field_and_record,
-    emit_field_record_and_document,
+    emit_field_end_record,
+    end_record,
     report_error
     };
 

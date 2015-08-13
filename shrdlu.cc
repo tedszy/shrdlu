@@ -16,8 +16,8 @@ Transition get_transition(const State& s, const Event& e) {
     case Event::data: return Transition{State::unquoted, Action::add};
     case Event::quote: return Transition{State::quoted, Action::next};
     case Event::comma: return Transition{State::start, Action::emit_field};
-    case Event::newline: return Transition{State::start, Action::emit_field_and_record};
-    case Event::eof: return Transition{State::end, Action::emit_field_record_and_document};
+    case Event::newline: return Transition{State::start, Action::emit_field_end_record}; 
+    case Event::eof: return Transition{State::end, Action::end_record};
     }
   case State::quoted:
     switch (e) {
@@ -32,16 +32,16 @@ Transition get_transition(const State& s, const Event& e) {
     case Event::data: return Transition{State::unquoted, Action::add};
     case Event::quote: return Transition{State::end, Action::report_error};
     case Event::comma: return Transition{State::start, Action::emit_field};
-    case Event::newline: return Transition{State::start, Action::emit_field_and_record};
-    case Event::eof: return Transition{State::end, Action::emit_field_record_and_document};
+    case Event::newline: return Transition{State::start, Action::emit_field_end_record};
+    case Event::eof: return Transition{State::end, Action::emit_field_end_record};
     }
   case State::ready:
     switch (e) {
     case Event::data: return Transition{State::end, Action::report_error};
     case Event::quote: return Transition{State::end, Action::report_error};
     case Event::comma: return Transition{State::start, Action::emit_field};
-    case Event::newline: return Transition{State::start, Action::emit_field_and_record};
-    case Event::eof: return Transition{State::end, Action::emit_field_record_and_document};
+    case Event::newline: return Transition{State::start, Action::emit_field_end_record};
+    case Event::eof: return Transition{State::end, Action::emit_field_end_record};
     }
   }
 }
@@ -101,7 +101,6 @@ int Csv_parser::read_record(stringstream& ss)
     tok = get_token(ss);
     position++;
     trans = get_transition(state, tok.event);
-    auto prev_state = state;
     state = trans.state;
     switch (trans.action) {
     case Action::add:
@@ -113,16 +112,14 @@ int Csv_parser::read_record(stringstream& ss)
       record.push_back(field);
       field.clear();
       break;
-    case Action::emit_field_and_record:
+    case Action::emit_field_end_record:
       record.push_back(field);
       return 0;
-    case Action::emit_field_record_and_document:
-      if (prev_state == State::start) {
+    case Action::end_record:
+      if (record.empty())
         return 2;
-      } else {
-        record.push_back(field);
+      else
         return 0;
-      }
     case Action::report_error:
       cerr << "parse error at position:" << position << endl;
       return 1;

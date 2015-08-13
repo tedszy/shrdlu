@@ -40,8 +40,9 @@ int main ()
 
 void print_record (std::vector<std::string> record)
 {
-  for (auto it = record.begin(); it != record.end(); ++it) {
-    std::cout << *it << " | ";
+  int k = 1;
+  for (auto it = record.begin(); it != record.end(); ++it, k++) {
+    std::cout << k << " " << *it << " | ";
   }
   std::cout << std::endl;
 }

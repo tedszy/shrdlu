@@ -4,3 +4,6 @@ unquoted,fields,should be ok
 "embed""ded","""quotes""","and "","" commas"
 "embedded
 newline",Cleveland,38392
+field1,field2,field3
+field1,field2,field3,
+,,,
