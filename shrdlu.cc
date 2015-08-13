@@ -1,6 +1,3 @@
-#include <iostream>
-#include <sstream>
-#include <vector>
 #include "shrdlu.h"
 
 using std::stringstream;
@@ -8,6 +5,17 @@ using std::vector;
 using std::string;
 using std::cerr;
 using std::endl;
+using std::ostream;
+
+ostream& operator<<(ostream& os, const Ret& r)
+{
+  switch (r) {
+  case Ret::ok: os << "ok"; break;
+  case Ret::parse_error: os << "parse error"; break;
+  case Ret::empty: os << "empty"; break;
+  };
+  return os;
+}
 
 Transition get_transition(const State& s, const Event& e) {
   switch (s) {
@@ -81,12 +89,12 @@ Token Csv_parser::get_token(stringstream& ss)
   }
 }
 
-int Csv_parser::read_record(stringstream& ss)
+Ret Csv_parser::read_record(stringstream& ss)
 {
   position = 0;
   record.clear();
   state = State::start;
-  string field;
+  string field{};
   Token tok;
   Transition trans;
 
@@ -108,15 +116,15 @@ int Csv_parser::read_record(stringstream& ss)
         break;
       case Action::emit_field_end_record:
         record.push_back(field);
-        return 0;
+        return Ret::ok;
       case Action::end_record:
         if (record.empty())
-          return 2;
+          return Ret::empty;
         else
-          return 0;
+          return Ret::ok;
       case Action::report_error:
         cerr << "parse error at position:" << position << endl;
-        return 1;
+        return Ret::parse_error;
       }
   }
 }

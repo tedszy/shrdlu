@@ -1,5 +1,14 @@
 #include <vector>
 #include <sstream>
+#include <iostream>
+
+enum class Ret {
+  ok,
+    parse_error,
+    empty
+    };
+
+std::ostream& operator<<(std::ostream&, const Ret&);
 
 enum class State {
   start,
@@ -44,7 +53,7 @@ class Csv_parser {
   Token get_token(std::stringstream&);
   
  public:
-  int read_record (std::stringstream&);
+  Ret read_record (std::stringstream&);
   int get_position (void);
   const std::vector<std::string>& get_record(void);
 };
