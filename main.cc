@@ -20,7 +20,8 @@ int main ()
 
   p.reset();  
   while (!foo.eof()) {
-    p.read_record(foo);
+    std::cout << "status: " << p.read_record(foo);
+    std::cout << " record==> ";
     print_record(p.get_record());
     p.reset();
   }

@@ -114,8 +114,12 @@ int Csv_parser::read_record(stringstream& ss)
       break;
     case Action::emit_field_and_record:
     case Action::emit_field_record_and_document:
-      record.push_back(field);
-      return 0;
+      if (tok.event == Event::eof) {
+        return 2;
+      } else {
+        record.push_back(field);
+        return 0;
+      }
     case Action::report_error:
       cerr << "parse error at position:" << position << endl;
       return 1;
