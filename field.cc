@@ -1,4 +1,3 @@
-#include <sstream>
 #include "field.h"
 
 using std::stringstream;

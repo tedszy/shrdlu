@@ -1,7 +1,7 @@
 #include <iostream>
-#include <sstream>
 #include <vector>
 #include "field.h"
+#include "testing.h"
 
 using std::string;
 using std::stringstream;
