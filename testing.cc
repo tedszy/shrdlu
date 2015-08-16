@@ -1,11 +1,30 @@
 #include <iostream>
 #include <sstream>
+#include <vector>
 #include "field.h"
 
 using std::string;
 using std::stringstream;
 using std::cout;
 using std::endl;
+using std::vector;
+
+void check_record(vector<string> a, vector<string> b, string msg)
+{
+  if (a == b)
+    cout << "ok... " << msg << endl;
+  else {
+    cout << "NOT OK... " << msg << endl;
+    cout << "expected ==>> ";
+    for (auto u : a)
+      cout << u << " | ";
+    cout << endl;
+    cout << "got      ==>> ";
+    for (auto u : b)
+      cout << u << " | ";
+    cout << endl;
+  }
+}
 
 void check_field(string a, string b, string func)
 {

@@ -4,9 +4,10 @@
 using std::stringstream;
 using std::string;
 
-const char quote = '"';
-const char comma = ',';
-const char newline = '\n';
+State Field_parser::get_state(void)
+{
+  return state;
+}
 
 string Field_parser::get_field(void)
 {
@@ -27,7 +28,9 @@ bool Field_parser::read_field (stringstream& ss)
         state = State::quoted;
         break;
       case comma: return true;
-      case newline: return true;
+      case newline:
+	ss.unget(); 
+	return true;
       default:
         state = State::unquoted;
         field.push_back(c);
@@ -39,7 +42,9 @@ bool Field_parser::read_field (stringstream& ss)
       switch (c) {
       case quote: return false;
       case comma: return false;
-      case newline: return true;
+      case newline:
+	ss.unget(); 
+	return true;
       default:
         field.push_back(c);
         break;
