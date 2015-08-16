@@ -18,6 +18,30 @@ void check_field(string a, string b, string func)
   }
 }
 
+void check_fail(stringstream& s, string func)
+{
+  Field_parser f;
+  if (!f.read_field(s))
+    cout << "ok... " << func << endl;
+  else {
+    cout << "NOT OK... " << func << endl;
+    cout << "expected failure " << endl;
+    cout << "got pass    ==>> " << f.get_field() << endl;
+  }
+}
+
+void check_pass(stringstream& s, string func)
+{
+  Field_parser f;
+  if (f.read_field(s))
+    cout << "ok... " << func << endl;
+  else {
+    cout << "NOT OK... " << func << endl;
+    cout << "expected pass " << endl;
+    cout << "got failure  ==>> " << f.get_field() << endl;
+  }
+}
+
 void test_quotequote()
 {
   stringstream s1{"\"\"\"abcd\""};
@@ -89,8 +113,26 @@ void test_empty ()
   check_field("", f.get_field(), "...");
 }
 
+void test_fail_unquoted()
+{
+  stringstream s{"ab\"cd"};
+  check_fail(s, __FUNCTION__);
+  s.str("abcd\","); s.clear();
+  check_fail(s, "...");
+  s.str("abcd\"\n"); s.clear();
+  check_fail(s, "...");
+  s.str("ab\"\"cd"); s.clear();
+  check_fail(s, "...");
+  s.str("\"abcd"); s.clear();
+  check_fail(s, "...");
+  s.str("abcd\""); s.clear();
+  check_fail(s, "...");
+}
+
 int main ()
 {
+  test_fail_unquoted();
+  
   test_empty();
   test_unquoted();
   test_quoted();
