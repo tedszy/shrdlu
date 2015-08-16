@@ -1,4 +1,4 @@
-#include <sstream>
+#include <iostream>
 
 const char quote = '"';
 const char comma = ',';
@@ -10,13 +10,16 @@ enum class State {
   quoted,
 };
 
-class Field_parser {
+struct  Field_parser {
   State state{State::start};
   std::string field{};
+  bool last{false};
   
-public:
-  bool read_field (std::stringstream&);
+  bool read_field (std::istream&);
   std::string get_field(void);
   State get_state(void);
+  bool is_last(void);
 };
 
+std::istream& operator>>(std::istream&, Field_parser&);
+std::ostream& operator<<(std::ostream&, Field_parser&);

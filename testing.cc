@@ -60,3 +60,12 @@ void check_pass(stringstream& s, string func)
     cout << "got failure  ==>> " << f.get_field() << endl;
   }
 }
+
+void check_true(bool x, string msg)
+{
+  if (x)
+    cout << "ok... " << msg << endl;
+  else {
+    cout << "NOT OK... " << msg << endl;
+  }
+}
