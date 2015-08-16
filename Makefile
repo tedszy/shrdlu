@@ -1,6 +1,7 @@
 MARKDOWN = pandoc --from markdown_github --to html 
 
-all: record_test
+all: field_test record_test
+	./field_test
 	./record_test
 
 record_test: record_test.o record.o field.o testing.o 
@@ -28,4 +29,4 @@ doc: README.md
 	$(MARKDOWN) $< --output README.html
 
 clean:
-	rm *.html *.o main field_test record record_test
+	rm *.o field_test record_test
