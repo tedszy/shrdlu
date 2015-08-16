@@ -92,10 +92,31 @@ void test_fail_unquoted()
   check_fail(s, "...");
 }
 
+void test_pass_quoted()
+{
+  // Once the field parser reads an endquote,
+  // it knows that it is at the end of a quoted
+  // field, so it returns true. It is up to
+  // a higher routine (such as one parsing a
+  // complete record or file) to determine if the
+  // characters that follow are legal. For example:
+  // a non-comma character after the endquote would
+  // be illegal. But the field parser cannot (and should not)
+  // know this.
+  stringstream s{"\"abcd\""};
+  check_pass(s, __FUNCTION__);
+  s.str("\"abcd\"\n"); s.clear();
+  check_pass(s, "...");
+  s.str("\"abcd\","); s.clear();
+  check_pass(s, "...");
+  s.str("\"abcd\"abcd"); s.clear();
+  check_pass(s, "...");
+}
+
 int main ()
 {
+  test_pass_quoted();
   test_fail_unquoted();
-  
   test_empty();
   test_unquoted();
   test_quoted();
