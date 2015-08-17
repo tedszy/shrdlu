@@ -1,34 +1,25 @@
+#include <sstream>
 #include "testing.h"
 #include "record.h"
 
 using std::stringstream;
 using std::vector;
 using std::string;
+using std::cout;
+using std::endl;
 
-void test_record1()
-{
-  stringstream ss("aaa,bbb,ccc");
-  Record_parser rp;
-  rp.read_record(ss);
-  check_record(vector<string>{"aaa","bbb","ccc"}, rp.get_record(), __FUNCTION__);
-  ss.str("\"aaa\",\"bbb\",\"ccc\""); ss.clear();
-  check_record(vector<string>{"aaa","bbb","ccc"}, rp.get_record(), "...");
-}
 
-void test_record2()
+int main ()
 {
-  stringstream ss("aaa,bbb,ccc\nddd,eee,fff");
+  stringstream
+    ss{"aaa,bbb,ccc\nddd,eee,fff\n\"gg\"\"g\",\"h,hh\",\"ii\ni\""};
   Record_parser rp;
-  rp.read_record(ss);
-  check_record(vector<string>{"aaa","bbb","ccc"}, rp.get_record(), __FUNCTION__);
-  ss.str("\"aaa\",\"bbb\",\"ccc\"\n\"ddd\",\"eee\",\"fff\""); ss.clear();
-  check_record(vector<string>{"aaa","bbb","ccc"}, rp.get_record(), "...");
-}
-          
-int main()
-{
-  test_record1();
-  test_record2();
-  
+  ss >> rp;
+  cout << rp << endl;
+  ss >> rp;
+  cout << rp << endl;
+  ss >> rp;
+  cout << rp << endl;
+
   return 0;
 }

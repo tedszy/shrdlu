@@ -1,13 +1,15 @@
 #include <vector>
-#include <sstream>
+#include <iostream>
 #include "field.h"
 
-class Record_parser 
+class Record_parser : public Field_parser
 {
   std::vector<std::string> record{};
-  Field_parser fp{};
 
  public:
-  bool read_record (std::stringstream&);
+  bool read_record (std::istream&);
   std::vector<std::string> get_record(void);
 };
+
+std::istream& operator>>(std::istream&, Record_parser&);
+std::ostream& operator<<(std::ostream&, Record_parser&);

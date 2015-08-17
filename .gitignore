@@ -1,6 +1,6 @@
 *.html
 *.o
-*.*~
+*~
 main
 field_test
 record_test
