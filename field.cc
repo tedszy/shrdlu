@@ -15,11 +15,6 @@ bool Field_parser::is_last()
   return last;
 }
 
-State Field_parser::get_state(void)
-{
-  return state;
-}
-
 string Field_parser::get_field(void)
 {
   return field;

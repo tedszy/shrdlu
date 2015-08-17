@@ -6,18 +6,19 @@ const char newline = '\n';
 
 enum class State {
   start,
-  unquoted,
-  quoted,
-};
+    unquoted,
+    quoted
+    };
 
-struct  Field_parser {
+class  Field_parser {
+ protected:
   State state{State::start};
   std::string field{};
   bool last{false};
-  
+
+ public:
   bool read_field (std::istream&);
   std::string get_field(void);
-  State get_state(void);
   bool is_last(void);
 };
 
