@@ -4,6 +4,7 @@
 
 class Record_parser : public Field_parser
 {
+ protected:
   std::vector<std::string> record{};
 
  public:

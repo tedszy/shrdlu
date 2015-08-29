@@ -1,7 +1,14 @@
-MARKDOWN = pandoc --from markdown_github --to html 
+all: field_test record_test document_test
+	./field_test && ./record_test && ./document_test
 
-all: record_test 
-	./record_test
+document_test: document.o record.o field.o document_test.o
+	g++ document.o field.o record.o document_test.o -o document_test
+
+document_test.o: document_test.cc
+	g++ -c -std=c++11 document_test.cc
+
+document.o: document.cc
+	g++ -c -std=c++11 document.cc
 
 record_test: record.o field.o record_test.o
 	g++ record.o field.o record_test.o -o record_test
@@ -24,8 +31,5 @@ field_test.o: field_test.cc testing.h field.h
 testing.o: testing.cc testing.h
 	g++ -c -std=c++11 testing.cc
 
-doc: README.md
-	$(MARKDOWN) $< --output README.html
-
 clean:
-	rm *.o field_test record_test
+	rm *.o field_test record_test document_test
