@@ -1,13 +1,16 @@
 #include <sstream>
 #include <vector>
+#include <fstream>
 #include "field.h"
 #include "record.h"
+#include "document.h"
 
 using std::stringstream;
 using std::string;
 using std::cout;
 using std::endl;
 using std::vector;
+using std::ifstream;
 
 void check_true(bool x, string msg)
 {
@@ -55,6 +58,7 @@ void test_should_fail(void);
 void test_quotequote1(void);
 void test_quotequote2(void);
 void test_record(void);
+void test_document(void);
 
 int main (void)
 {
@@ -77,6 +81,9 @@ int main (void)
   cout << endl;
   cout << "----- Record parser tests -----" << endl;
   test_record();
+  cout << endl;
+  cout << "----- Document parser tests -----" << endl;
+  test_document();
   return 0;
 }
 
@@ -236,4 +243,14 @@ void test_record ()
   check_record(r3, rp.get_record(), "**");
   check_true(rp.is_last(), "***");
 }
-  
+
+void test_document()
+{
+  cout << "Read document from file... ";
+  ifstream my_file;
+  Document_parser dp;
+  my_file.open("sample.csv");
+  my_file >> dp;
+  my_file.close();
+  cout << dp.get_document().size() << " records read." << endl;
+}
