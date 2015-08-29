@@ -10,11 +10,11 @@ build and run the tests.
 
 Shrdlu breaks down the problem of parsing CSV data into three stages.
 
-1. A Field parser, which parses single fields of a CSV document.
+1. A field parser, which parses single fields of a CSV document.
 
-2. Using the Field parser to make a Record_parser, which parses one CSV record.
+2. Using the Field parser to make a record parser, which parses one CSV record.
 
-3. Using the Record_parser to make a Document_parser, which reads an
+3. Using the record parser to make a document parser, which reads an
 entire CSV document.
 
 Shrdlu is easy to use. Just do extractions from an input stream
