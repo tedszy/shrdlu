@@ -10,7 +10,7 @@ Shrdlu breaks down the problem of parsing CSV data into three stages.
 3. Using Record_parser to make Document_parser, which reads an
 entire CSV document.
 
-Shrdlu is easy to use. Just put an input stream into one of the parser
+Shrdlu is easy to use. Just extract from an input stream into one of the parser
 components, like so:
 
 ``` cpp
