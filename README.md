@@ -1,17 +1,24 @@
 # shrdlu
 Experiments in reading CSV documents.
 
+## Install
+
+Clone the repo and run ```make ```. That will
+build and run the tests. 
+
+## Usage
+
 Shrdlu breaks down the problem of parsing CSV data into three stages.
 
-1. Writing Field_parser, which parses single fields of a CSV document.
+1. A Field parser, which parses single fields of a CSV document.
 
-2. Using Field_parser to make Record_parser, which parses one CSV record.
+2. Using the Field parser to make a Record_parser, which parses one CSV record.
 
-3. Using Record_parser to make Document_parser, which reads an
+3. Using the Record_parser to make a Document_parser, which reads an
 entire CSV document.
 
-Shrdlu is easy to use. Just extract from an input stream into one of the parser
-components, like so:
+Shrdlu is easy to use. Just do extractions from an input stream
+into one of the parser components, like so:
 
 ``` cpp
 
@@ -32,5 +39,4 @@ input_stream >> dp;
 
 ```
 
-To install shrdlu, clone the repo and run ```shell make ```. That will
-build and run the tests. Look in ```shell test.cc ``` for examples.
+Look in ```test.cc ``` for details.
