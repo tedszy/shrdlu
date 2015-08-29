@@ -1,10 +1,13 @@
 #include <sstream>
+#include <vector>
 #include "field.h"
+#include "record.h"
 
 using std::stringstream;
 using std::string;
 using std::cout;
 using std::endl;
+using std::vector;
 
 void check_true(bool x, string msg)
 {
@@ -26,6 +29,23 @@ void check_field(string a, string b, string msg)
   }
 }
 
+void check_record(vector<string> a, vector<string> b, string msg)
+{
+  if (a == b)
+    cout << "ok... " << msg << endl;
+  else {
+    cout << "NOT OK... " << msg << endl;
+    cout << "expected ==>> ";
+    for (auto u : a)
+      cout << u << " | ";
+    cout << endl;
+    cout << "got      ==>> ";
+    for (auto u : b)
+      cout << u << " | ";
+    cout << endl;
+  }
+}
+
 void test_plain_unquoted(void);
 void test_plain_quoted(void);
 void test_empty1(void);
@@ -34,9 +54,11 @@ void test_embedded(void);
 void test_should_fail(void);
 void test_quotequote1(void);
 void test_quotequote2(void);
+void test_record(void);
 
 int main (void)
 {
+  cout << "----- Field parser tests -----" << endl;
   test_plain_unquoted();
   cout << endl;
   test_plain_quoted();
@@ -52,6 +74,9 @@ int main (void)
   test_quotequote1();
   cout << endl;
   test_quotequote2();
+  cout << endl;
+  cout << "----- Record parser tests -----" << endl;
+  test_record();
   return 0;
 }
 
@@ -194,3 +219,21 @@ void test_quotequote2 ()
   check_field("abcd\"", fp.get_field(), "****");
   check_true(fp.is_last(), "*****");
 }
+
+void test_record ()
+{
+  string msg{"Read several records from stream"};
+  stringstream ss{"aaa,bbb,ccc\nddd,eee,fff\n\"gg\"\"g\",\"h,hh\",\"ii\ni\""};
+  vector<string> r1{"aaa","bbb","ccc"};
+  vector<string> r2{"ddd","eee","fff"};
+  vector<string> r3{"gg\"g","h,hh", "ii\ni"};
+  Record_parser rp;
+  ss >> rp;
+  check_record(r1, rp.get_record(), msg);
+  ss >> rp;
+  check_record(r2, rp.get_record(), "*");
+  ss >> rp;
+  check_record(r3, rp.get_record(), "**");
+  check_true(rp.is_last(), "***");
+}
+  

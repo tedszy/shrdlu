@@ -1,3 +1,6 @@
+#ifndef DOCUMENT_H
+#define DOCUMENT_H
+
 #include <vector>
 #include <iostream>
 #include "record.h"
@@ -14,4 +17,4 @@ class Document_parser : public Record_parser
 std::istream& operator>>(std::istream&, Document_parser&);
 std::ostream& operator<<(std::ostream&, Document_parser&);
 
-
+#endif

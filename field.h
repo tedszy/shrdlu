@@ -1,3 +1,6 @@
+#ifndef FIELD_H
+#define FIELD_H
+
 #include <iostream>
 
 const char quote = '"';
@@ -24,3 +27,5 @@ class  Field_parser {
 
 std::istream& operator>>(std::istream&, Field_parser&);
 std::ostream& operator<<(std::ostream&, Field_parser&);
+
+#endif

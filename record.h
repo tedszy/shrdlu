@@ -1,3 +1,6 @@
+#ifndef RECORD_H
+#define RECORD_H
+
 #include <vector>
 #include <iostream>
 #include "field.h"
@@ -14,3 +17,5 @@ class Record_parser : public Field_parser
 
 std::istream& operator>>(std::istream&, Record_parser&);
 std::ostream& operator<<(std::ostream&, Record_parser&);
+
+#endif
